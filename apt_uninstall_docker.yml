@@ -1,7 +1,7 @@
 - name: Uninstall Docker
   hosts: all
   become: yes
-  become: root
+  become_user: root
   tasks:
   - name: Remove Docker packages
     apt:
