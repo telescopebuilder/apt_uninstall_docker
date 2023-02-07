@@ -1,0 +1,22 @@
+- name: Uninstall Docker
+  hosts: all
+  become: yes
+  become: root
+  tasks:
+  - name: Remove Docker packages
+    apt:
+      name:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+        - docker-buildx-plugin
+        - docker-compose-plugin
+      state: absent
+  - name: Remove Docker GPG key
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: absent
+  - name: Remove Docker repository
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+      state: absent
